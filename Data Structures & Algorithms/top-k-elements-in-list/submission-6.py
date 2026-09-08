@@ -1,24 +1,18 @@
 from collections import defaultdict
-from typing import List
-
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        top = defaultdict(int)
-        mylist = []
-
+        num_freq = defaultdict(int)
         for i in nums:
-            top[i] += 1
+            num_freq[i] += 1
+        
+        arr = []
+        for num, freq in num_freq.items():
+            arr.append([freq, num])
+        arr.sort()
 
-            if i not in mylist:
-                mylist.append(i)
+        return_list = []
+        while len(return_list) < k:
+            return_list.append(arr.pop()[1])
 
-            j = mylist.index(i)
-
-            while j > 0 and top[mylist[j]] > top[mylist[j - 1]]:
-                mylist[j], mylist[j - 1] = mylist[j - 1], mylist[j]
-                j -= 1
-
-            if len(mylist) > k:
-                mylist.pop()
-
-        return mylist
+        return return_list
+        
